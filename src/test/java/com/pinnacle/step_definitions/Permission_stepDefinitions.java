@@ -1,20 +1,17 @@
 package com.pinnacle.step_definitions;
 
-import com.pinnacle.pages.AdminHomePage;
-import com.pinnacle.pages.AttributesPage;
-import com.pinnacle.pages.GroupsPage;
-import com.pinnacle.pages.PinnacleHomePage;
+import com.pinnacle.pages.*;
 import com.pinnacle.utilities.BrowserUtils;
 import com.pinnacle.utilities.ConfigurationReader;
 import com.pinnacle.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +19,26 @@ public class Permission_stepDefinitions extends Hooks {
     PinnacleHomePage testPage = new PinnacleHomePage();
     AdminHomePage adminHomePage = new AdminHomePage();
     GroupsPage groupsPage = new GroupsPage();
+    AttributesPage attributesPage = new AttributesPage();
+
+    RecordManagementPage recordManagementPage = new RecordManagementPage();
+    BrowserUtils browserUtils = new BrowserUtils();
+    @Given("I am logged in the Pinnacle Home page as an Assignment Administrator")
+    public void i_am_logged_in_the_pinnacle_home_page_as_an_assignment_administrator() {
+//        Driver.getDriver().get(ConfigurationReader.getProperty("el.beta.url"));
+//        testPage.username.sendKeys(ConfigurationReader.getProperty("username"));
+//        testPage.passwords.sendKeys(ConfigurationReader.getProperty("password1"));
+//        BrowserUtils.sleep(3);
+//        browserUtils.clickWithJS(testPage.signInBtn);
+
+        Driver.getDriver().get(ConfigurationReader.getProperty("indev.url"));
+        testPage.username.sendKeys(ConfigurationReader.getProperty("username1"));
+        testPage.passwords.sendKeys(ConfigurationReader.getProperty("password"));
+        BrowserUtils.sleep(3);
+        browserUtils.doubleClick(testPage.signInBtn);
+
+//        testPage.signInBtn.click();
+    }
     @Given("I am on the login page Pinnacle")
     public void i_am_on_the_login_page_pinnacle() {
         BrowserUtils.sleep(3);
@@ -64,6 +81,8 @@ public class Permission_stepDefinitions extends Hooks {
             List<String> listOfTabs = new ArrayList<>(Driver.getDriver().getWindowHandles());
             Driver.getDriver().switchTo().window(listOfTabs.get(1));
         }
+
+
     @Then("a secondary tab is launched and I am taken into the Administration Portal")
     public void a_secondary_tab_is_launched_and_i_am_taken_into_the_administration_portal() {
         String actualResult = Driver.getDriver().getTitle();
@@ -79,11 +98,11 @@ public class Permission_stepDefinitions extends Hooks {
     @When("I click on External Learning")
     public void i_click_on_external_learning() {
         adminHomePage.externalLearningBtn.click();
-        BrowserUtils.waitForVisibility(adminHomePage.recordManagement,2);
+        BrowserUtils.waitForVisibility(adminHomePage.recordManagementOption,5);
     }
     @Then("The Records Management and Setup Options are displayed")
     public void the_records_management_and_setup_options_are_displayed() {
-        BrowserUtils.verifyElementDisplayed(adminHomePage.recordManagement);
+        BrowserUtils.verifyElementDisplayed(adminHomePage.recordManagementOption);
         BrowserUtils.verifyElementDisplayed(adminHomePage.setupBnt);
     }
     @Then("I click on sign out")
@@ -123,14 +142,17 @@ public class Permission_stepDefinitions extends Hooks {
 
     }
     @When("I click on {string} button")
-    public void i_click_on_button(String arg0) {
-        BrowserUtils.waitForClickability(groupsPage.editGroupBtn,2);
-        groupsPage.editGroupBtn.click();
+    public void i_click_on_button(String attribute) {
+        System.out.println(attribute);
+        attributesPage.addNewAttribute.click();
+
+
+
     }
     @Then("there is new {string} permission is displayed")
     public void there_is_new_permission_is_displayed(String string) {
         adminHomePage.AssignmentAdministratorBtn.getText();
-        BrowserUtils.waitForVisibility(adminHomePage.AssignmentAdministratorBtn, 3);
+        BrowserUtils.waitForVisibility(adminHomePage.AssignmentAdministratorBtn,30);
       //  BrowserUtils.verifyElementDisplayed(adminHomePage.AssignmentAdministratorBtn);
     }
 
@@ -142,10 +164,11 @@ public class Permission_stepDefinitions extends Hooks {
 
     @Then("The Records Management is displayed")
     public void the_records_management_is_displayed() {
-        adminHomePage.recordManagement.isDisplayed();
+        BrowserUtils.waitForVisibility(recordManagementPage.recordManagementPage, 30);
+        System.out.println();
+        Assert.assertEquals( "External Learning Record Management", recordManagementPage.recordManagementPage.getText());
+
     }
-
-
 
 }
 

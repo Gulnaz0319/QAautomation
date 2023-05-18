@@ -1,4 +1,4 @@
-@test
+@permissions
 Feature: Permissions for External Learning
   Scenario: Login to Admin Portal as an Assignment Administrator
     Given I am on the login page Pinnacle

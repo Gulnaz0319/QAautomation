@@ -83,8 +83,8 @@ public class BrowserUtils {
         return elemTexts;
     }
 
-    public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+    public static WebElement waitForVisibility(WebElement element,int timeout) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 //
@@ -94,7 +94,7 @@ public class BrowserUtils {
 //    }
 //
     public static WebElement waitForClickability(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 //
@@ -292,6 +292,11 @@ public class BrowserUtils {
 
         }
 
+
     }
+
+//    public static BrowserUtils addRecordManuallyModal(){
+//
+//    }
 
 }

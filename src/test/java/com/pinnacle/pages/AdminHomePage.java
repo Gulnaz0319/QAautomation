@@ -7,7 +7,7 @@ public class AdminHomePage extends BasePage{
     @FindBy(xpath = "//a[@id='ExternalLearningDropDown']")
     public WebElement externalLearningBtn;
 
-    @FindBy(xpath = "//a[.=\"Setup\"]")
+    @FindBy(xpath = "//*[@id='external-learning-submenu']//*[contains(text(), 'Setup')]")
     public WebElement setupBnt;
 
     @FindBy(xpath = "//span[contains(text(), 'External Learning Setup')]")
@@ -34,9 +34,12 @@ public class AdminHomePage extends BasePage{
     //div[.=" Assignment Administrator "]
 
     @FindBy(xpath = "//span[.=\"Record Management\"]")
-    public WebElement recordManagement;
+    public WebElement recordManagementOption;
 
     @FindBy(xpath = "//span[.=\"Setup\"]")
     public WebElement setUpOption;
+
+
+
 
 }

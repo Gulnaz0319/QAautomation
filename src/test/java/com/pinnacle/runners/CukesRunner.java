@@ -8,8 +8,11 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue= "com/pinnacle/step_definitions",
-        dryRun = true, //,
+        dryRun = false, //,
        tags = "@test",
+//        @permissions
+//        @activities
+//        @attributes
         plugin = {
                 "html:target/cucumber-report.html",
                 "rerun:target/rerun.txt", //store failed scenario names into rerun.txt file
